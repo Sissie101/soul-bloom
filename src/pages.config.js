@@ -94,7 +94,7 @@ export const PAGES = {
 }
 
 export const pagesConfig = {
-    mainPage: "Analytics",
+    mainPage: "AgentStudio",
     Pages: PAGES,
     Layout: __Layout,
 };
