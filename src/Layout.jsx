@@ -1,8 +1,7 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Flower2, Heart, Users, BookOpen, Sparkles, Home, Lightbulb, Megaphone, PieChart, Bot, Wrench } from "lucide-react";
+import { Flower2, Heart, Users, BookOpen, Sparkles, Home, Lightbulb, Megaphone, PieChart, Bot, Wrench, Mail, MessageCircle } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -65,7 +64,22 @@ const marketingStrategyItems = [
   {
     title: "Agent Studio",
     url: createPageUrl("AgentStudio"),
-    icon: Bot, // Used Bot now that it's imported
+    icon: Bot,
+  },
+  {
+    title: "Predictive Insights",
+    url: createPageUrl("PredictiveInsights"),
+    icon: Sparkles,
+  },
+  {
+    title: "Newsletter Generator",
+    url: createPageUrl("NewsletterGenerator"),
+    icon: Mail,
+  },
+  {
+    title: "Sentiment Analysis",
+    url: createPageUrl("SentimentAnalysis"),
+    icon: MessageCircle,
   },
   {
     title: "Tracking Setup",

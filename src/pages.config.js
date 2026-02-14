@@ -1,45 +1,100 @@
-import Dashboard from './pages/Dashboard';
-import TodaysSeed from './pages/TodaysSeed';
-import SoulBuddy from './pages/SoulBuddy';
+/**
+ * pages.config.js - Page routing configuration
+ * 
+ * This file is AUTO-GENERATED. Do not add imports or modify PAGES manually.
+ * Pages are auto-registered when you create files in the ./pages/ folder.
+ * 
+ * THE ONLY EDITABLE VALUE: mainPage
+ * This controls which page is the landing page (shown when users visit the app).
+ * 
+ * Example file structure:
+ * 
+ *   import HomePage from './pages/HomePage';
+ *   import Dashboard from './pages/Dashboard';
+ *   import Settings from './pages/Settings';
+ *   
+ *   export const PAGES = {
+ *       "HomePage": HomePage,
+ *       "Dashboard": Dashboard,
+ *       "Settings": Settings,
+ *   }
+ *   
+ *   export const pagesConfig = {
+ *       mainPage: "HomePage",
+ *       Pages: PAGES,
+ *   };
+ * 
+ * Example with Layout (wraps all pages):
+ *
+ *   import Home from './pages/Home';
+ *   import Settings from './pages/Settings';
+ *   import __Layout from './Layout.jsx';
+ *
+ *   export const PAGES = {
+ *       "Home": Home,
+ *       "Settings": Settings,
+ *   }
+ *
+ *   export const pagesConfig = {
+ *       mainPage: "Home",
+ *       Pages: PAGES,
+ *       Layout: __Layout,
+ *   };
+ *
+ * To change the main page from HomePage to Dashboard, use find_replace:
+ *   Old: mainPage: "HomePage",
+ *   New: mainPage: "Dashboard",
+ *
+ * The mainPage value must match a key in the PAGES object exactly.
+ */
+import AgentStudio from './pages/AgentStudio';
+import Analytics from './pages/Analytics';
+import AudienceManager from './pages/AudienceManager';
 import CampaignDashboard from './pages/CampaignDashboard';
 import CampaignDetails from './pages/CampaignDetails';
-import CreativeStudio from './pages/CreativeStudio';
-import AudienceManager from './pages/AudienceManager';
-import Analytics from './pages/Analytics';
-import TrackingSetup from './pages/TrackingSetup';
-import StrategicActionCenter from './pages/StrategicActionCenter';
-import LandingPageOptimizer from './pages/LandingPageOptimizer';
-import AgentStudio from './pages/AgentStudio';
 import Community from './pages/Community';
+import CreativeStudio from './pages/CreativeStudio';
+import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
+import LandingPageOptimizer from './pages/LandingPageOptimizer';
 import MyJournal from './pages/MyJournal';
 import SacredSoundscapes from './pages/SacredSoundscapes';
-import Home from './pages/Home';
+import SoulBuddy from './pages/SoulBuddy';
+import StrategicActionCenter from './pages/StrategicActionCenter';
 import Terms from './pages/Terms';
-import Layout from './Layout.jsx';
+import TodaysSeed from './pages/TodaysSeed';
+import TrackingSetup from './pages/TrackingSetup';
+import PredictiveInsights from './pages/PredictiveInsights';
+import NewsletterGenerator from './pages/NewsletterGenerator';
+import SentimentAnalysis from './pages/SentimentAnalysis';
+import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Dashboard": Dashboard,
-    "TodaysSeed": TodaysSeed,
-    "SoulBuddy": SoulBuddy,
+    "AgentStudio": AgentStudio,
+    "Analytics": Analytics,
+    "AudienceManager": AudienceManager,
     "CampaignDashboard": CampaignDashboard,
     "CampaignDetails": CampaignDetails,
-    "CreativeStudio": CreativeStudio,
-    "AudienceManager": AudienceManager,
-    "Analytics": Analytics,
-    "TrackingSetup": TrackingSetup,
-    "StrategicActionCenter": StrategicActionCenter,
-    "LandingPageOptimizer": LandingPageOptimizer,
-    "AgentStudio": AgentStudio,
     "Community": Community,
+    "CreativeStudio": CreativeStudio,
+    "Dashboard": Dashboard,
+    "Home": Home,
+    "LandingPageOptimizer": LandingPageOptimizer,
     "MyJournal": MyJournal,
     "SacredSoundscapes": SacredSoundscapes,
-    "Home": Home,
+    "SoulBuddy": SoulBuddy,
+    "StrategicActionCenter": StrategicActionCenter,
     "Terms": Terms,
+    "TodaysSeed": TodaysSeed,
+    "TrackingSetup": TrackingSetup,
+    "PredictiveInsights": PredictiveInsights,
+    "NewsletterGenerator": NewsletterGenerator,
+    "SentimentAnalysis": SentimentAnalysis,
 }
 
 export const pagesConfig = {
     mainPage: "AudienceManager",
     Pages: PAGES,
-    Layout: Layout,
+    Layout: __Layout,
 };
