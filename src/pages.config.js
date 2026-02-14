@@ -94,7 +94,7 @@ export const PAGES = {
 }
 
 export const pagesConfig = {
-    mainPage: "AudienceManager",
+    mainPage: "Analytics",
     Pages: PAGES,
     Layout: __Layout,
 };
