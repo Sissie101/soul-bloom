@@ -72,9 +72,11 @@ Format as a complete email ready to send, including subject line.`,
       setNewsletter(result);
     } catch (error) {
       console.error('Newsletter generation error:', error);
-      toast.error('Failed to generate newsletter');
+      toast.error('Unable to generate newsletter at this time. Please try again later.');
+      setNewsletter('');
+    } finally {
+      setIsGenerating(false);
     }
-    setIsGenerating(false);
   };
 
   const copyToClipboard = () => {

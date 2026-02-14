@@ -34,6 +34,9 @@ export default function SentimentAnalysis() {
   });
 
   const analyzeSentiment = async (text) => {
+    if (!text || text.trim().length < 5) {
+      return null;
+    }
     try {
       const result = await base44.integrations.Core.InvokeLLM({
         prompt: `Analyze the sentiment and extract insights from this user feedback for Sacred Seeds, a spiritual journaling app:
@@ -58,7 +61,8 @@ Provide:
       return result;
     } catch (error) {
       console.error('Sentiment analysis error:', error);
-      return null;
+      toast.error('AI analysis temporarily unavailable');
+      return { sentiment: 'neutral', themes: [], insights: 'Manual review needed', suggested_action: 'Follow up later' };
     }
   };
 
@@ -119,9 +123,11 @@ ${JSON.stringify(allFeedback, null, 2)}`,
       setInsights(result);
     } catch (error) {
       console.error('Insights generation error:', error);
-      toast.error('Failed to generate insights');
+      toast.error('Unable to generate insights at this time. Please try again later.');
+      setInsights(null);
+    } finally {
+      setIsAnalyzing(false);
     }
-    setIsAnalyzing(false);
   };
 
   const sentimentIcon = (sentiment) => {

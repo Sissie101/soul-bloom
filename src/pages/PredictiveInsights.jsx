@@ -31,6 +31,12 @@ export default function PredictiveInsights() {
     try {
       const activeCampaigns = campaigns.filter(c => c.status === 'active');
       
+      if (activeCampaigns.length === 0) {
+        toast.error('No active campaigns to analyze');
+        setIsAnalyzing(false);
+        return;
+      }
+      
       const performanceData = activeCampaigns.map(campaign => {
         const campaignAnalytics = analytics.filter(a => a.campaign_id === campaign.id);
         const campaignCreatives = creatives.filter(c => c.campaign_id === campaign.id);
@@ -115,8 +121,11 @@ Provide actionable, specific insights that connect to Soul Sync Insights' spirit
       setPredictions(result);
     } catch (error) {
       console.error('Prediction error:', error);
+      toast.error('Unable to generate predictions. Please try again later.');
+      setPredictions(null);
+    } finally {
+      setIsAnalyzing(false);
     }
-    setIsAnalyzing(false);
   };
 
   return (
