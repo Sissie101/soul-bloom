@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { Heart, Frown, Meh, Smile, TrendingUp, MessageCircle, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
+import { Toaster } from '@/components/ui/sonner';
 
 export default function SentimentAnalysis() {
   const [newFeedback, setNewFeedback] = useState('');
@@ -147,7 +148,9 @@ ${JSON.stringify(allFeedback, null, 2)}`,
   };
 
   return (
-    <div className="p-8 bg-gradient-to-br from-blue-50 to-teal-50 min-h-screen">
+    <>
+      <Toaster position="top-center" richColors />
+      <div className="p-8 bg-gradient-to-br from-blue-50 to-teal-50 min-h-screen">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
@@ -348,5 +351,6 @@ ${JSON.stringify(allFeedback, null, 2)}`,
         </Card>
       </div>
     </div>
+    </>
   );
 }

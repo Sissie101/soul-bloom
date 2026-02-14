@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Mail, Sparkles, Copy, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
+import { Toaster } from '@/components/ui/sonner';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function NewsletterGenerator() {
@@ -85,7 +86,9 @@ Format as a complete email ready to send, including subject line.`,
   };
 
   return (
-    <div className="p-8 bg-gradient-to-br from-rose-50 to-purple-50 min-h-screen">
+    <>
+      <Toaster position="top-center" richColors />
+      <div className="p-8 bg-gradient-to-br from-rose-50 to-purple-50 min-h-screen">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
@@ -164,5 +167,6 @@ Format as a complete email ready to send, including subject line.`,
         )}
       </div>
     </div>
+    </>
   );
 }

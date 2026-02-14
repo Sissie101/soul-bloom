@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { AnalyticsEvent, Creative, Audience } from '@/entities/all';
 import { Button } from '@/components/ui/button';
@@ -31,11 +30,12 @@ export default function StrategicActionCenter() {
   useEffect(() => {
     const runAnalysis = async () => {
       setIsLoading(true);
-      const [events, creatives, audiences] = await Promise.all([
-        AnalyticsEvent.list(),
-        Creative.list(),
-        Audience.list()
-      ]);
+      try {
+        const [events, creatives, audiences] = await Promise.all([
+          AnalyticsEvent.list(),
+          Creative.list(),
+          Audience.list()
+        ]);
 
       setMetrics({
         clicks: events.filter(e => e.event_type === 'click').length,
@@ -73,7 +73,11 @@ export default function StrategicActionCenter() {
           setLeakyCreative(leakyCandidates[0]);
       }
 
-      setIsLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     runAnalysis();
   }, []);

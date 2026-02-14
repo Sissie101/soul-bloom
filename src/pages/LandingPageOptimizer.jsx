@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Creative } from '@/entities/all';
 import { InvokeLLM } from '@/integrations/Core';
@@ -79,7 +78,7 @@ export default function LandingPageOptimizer() {
       setAnalysis(result);
     } catch (error) {
       console.error("Analysis failed:", error);
-      setAnalysis({ error: "Failed to analyze the page. Please check the URL and try again." });
+      setAnalysis({ error: "Unable to complete analysis at this time. This may be due to rate limits or connectivity issues. Please try again in a few moments." });
     } finally {
       setIsAnalyzing(false);
     }

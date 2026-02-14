@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Sparkles, TrendingUp, TrendingDown, AlertTriangle, Target, ArrowRight } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { toast } from 'sonner';
+import { Toaster } from '@/components/ui/sonner';
 
 export default function PredictiveInsights() {
   const [predictions, setPredictions] = useState(null);
@@ -129,7 +131,9 @@ Provide actionable, specific insights that connect to Soul Sync Insights' spirit
   };
 
   return (
-    <div className="p-8 bg-gradient-to-br from-slate-50 to-indigo-50 min-h-screen">
+    <>
+      <Toaster position="top-center" richColors />
+      <div className="p-8 bg-gradient-to-br from-slate-50 to-indigo-50 min-h-screen">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
@@ -261,5 +265,6 @@ Provide actionable, specific insights that connect to Soul Sync Insights' spirit
         )}
       </div>
     </div>
+    </>
   );
 }
