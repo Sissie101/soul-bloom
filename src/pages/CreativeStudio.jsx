@@ -184,7 +184,6 @@ export default function CreativeStudio() {
               </div>
             </Card>
           </div>
-          </div>
         </div>
       </div>
     </div>
