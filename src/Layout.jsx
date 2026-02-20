@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Flower2, Heart, Users, BookOpen, Sparkles, Home, Lightbulb, Megaphone, PieChart, Bot, Wrench, Mail, MessageCircle } from "lucide-react";
+import { Flower2, Heart, Users, BookOpen, Sparkles, Home, Lightbulb, Megaphone, PieChart, Bot, Wrench, Mail, MessageCircle, Library } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -80,6 +80,11 @@ const marketingStrategyItems = [
     title: "Sentiment Analysis",
     url: createPageUrl("SentimentAnalysis"),
     icon: MessageCircle,
+  },
+  {
+    title: "Content Insights",
+    url: createPageUrl("ContentInsights"),
+    icon: Library,
   },
   {
     title: "Tracking Setup",

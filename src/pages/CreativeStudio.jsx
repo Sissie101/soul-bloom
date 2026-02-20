@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Creative, Campaign, Audience, User } from "@/entities/all";
 import { UploadFile } from "@/integrations/Core";
@@ -8,9 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Save, Upload, Eye } from "lucide-react";
+import { ArrowLeft, Save, Eye } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import AIAssistPanel from "@/components/creative/AIAssistPanel";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function CreativeStudio() {
   const navigate = useNavigate();
@@ -90,7 +91,9 @@ export default function CreativeStudio() {
   };
 
   return (
-    <div className="p-8 bg-slate-50 min-h-screen">
+    <>
+    <Toaster position="top-center" richColors />
+    <div className="p-4 md:p-8 bg-slate-50 min-h-screen">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Form Column */}
         <div className="lg:col-span-2">
@@ -154,8 +157,13 @@ export default function CreativeStudio() {
           </Card>
         </div>
 
-        {/* Preview Column */}
-        <div className="lg:col-span-1">
+        {/* Right Column: AI + Preview */}
+        <div className="lg:col-span-1 space-y-6">
+          <AIAssistPanel
+            creative={creative}
+            onApplyCopy={(copy) => handleInputChange('copy', copy)}
+            onApplyImage={(url) => { handleInputChange('image_url', url); setImagePreview(url); }}
+          />
           <div className="sticky top-8">
             <h2 className="text-xl font-semibold mb-4 flex items-center gap-2"><Eye className="w-5 h-5"/> Live Preview</h2>
             <Card className="overflow-hidden">
@@ -176,8 +184,10 @@ export default function CreativeStudio() {
               </div>
             </Card>
           </div>
+          </div>
         </div>
       </div>
     </div>
+    </>
   );
 }
