@@ -58,15 +58,16 @@ import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import LandingPageOptimizer from './pages/LandingPageOptimizer';
 import MyJournal from './pages/MyJournal';
+import NewsletterGenerator from './pages/NewsletterGenerator';
+import PredictiveInsights from './pages/PredictiveInsights';
 import SacredSoundscapes from './pages/SacredSoundscapes';
+import SentimentAnalysis from './pages/SentimentAnalysis';
 import SoulBuddy from './pages/SoulBuddy';
 import StrategicActionCenter from './pages/StrategicActionCenter';
 import Terms from './pages/Terms';
 import TodaysSeed from './pages/TodaysSeed';
 import TrackingSetup from './pages/TrackingSetup';
-import PredictiveInsights from './pages/PredictiveInsights';
-import NewsletterGenerator from './pages/NewsletterGenerator';
-import SentimentAnalysis from './pages/SentimentAnalysis';
+import ContentInsights from './pages/ContentInsights';
 import __Layout from './Layout.jsx';
 
 
@@ -82,15 +83,16 @@ export const PAGES = {
     "Home": Home,
     "LandingPageOptimizer": LandingPageOptimizer,
     "MyJournal": MyJournal,
+    "NewsletterGenerator": NewsletterGenerator,
+    "PredictiveInsights": PredictiveInsights,
     "SacredSoundscapes": SacredSoundscapes,
+    "SentimentAnalysis": SentimentAnalysis,
     "SoulBuddy": SoulBuddy,
     "StrategicActionCenter": StrategicActionCenter,
     "Terms": Terms,
     "TodaysSeed": TodaysSeed,
     "TrackingSetup": TrackingSetup,
-    "PredictiveInsights": PredictiveInsights,
-    "NewsletterGenerator": NewsletterGenerator,
-    "SentimentAnalysis": SentimentAnalysis,
+    "ContentInsights": ContentInsights,
 }
 
 export const pagesConfig = {
