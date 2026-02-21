@@ -53,6 +53,7 @@ import AudienceManager from './pages/AudienceManager';
 import CampaignDashboard from './pages/CampaignDashboard';
 import CampaignDetails from './pages/CampaignDetails';
 import Community from './pages/Community';
+import ContentInsights from './pages/ContentInsights';
 import CreativeStudio from './pages/CreativeStudio';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
@@ -67,7 +68,6 @@ import StrategicActionCenter from './pages/StrategicActionCenter';
 import Terms from './pages/Terms';
 import TodaysSeed from './pages/TodaysSeed';
 import TrackingSetup from './pages/TrackingSetup';
-import ContentInsights from './pages/ContentInsights';
 import __Layout from './Layout.jsx';
 
 
@@ -78,6 +78,7 @@ export const PAGES = {
     "CampaignDashboard": CampaignDashboard,
     "CampaignDetails": CampaignDetails,
     "Community": Community,
+    "ContentInsights": ContentInsights,
     "CreativeStudio": CreativeStudio,
     "Dashboard": Dashboard,
     "Home": Home,
@@ -92,7 +93,6 @@ export const PAGES = {
     "Terms": Terms,
     "TodaysSeed": TodaysSeed,
     "TrackingSetup": TrackingSetup,
-    "ContentInsights": ContentInsights,
 }
 
 export const pagesConfig = {
