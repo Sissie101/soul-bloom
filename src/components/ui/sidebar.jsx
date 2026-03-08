@@ -380,6 +380,7 @@ const SidebarMenuButton = React.forwardRef(function SidebarMenuButton(
   const button = (
     <Comp
       ref={ref}
+      id={id}
       data-sidebar="menu-button"
       data-size={size}
       data-active={isActive}
