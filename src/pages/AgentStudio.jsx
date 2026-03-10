@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect, useRef } from 'react';
-import { agentSDK } from '@/agents';
+import { base44 } from '@/api/base44Client';
+const agentSDK = base44.agents;
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
