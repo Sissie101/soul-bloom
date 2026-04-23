@@ -4,8 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Bot, Plus, Send, Download, FileText, FileDown } from 'lucide-react';
+import { Bot, Plus, Send, Download, FileText, FileDown, LayoutTemplate } from 'lucide-react';
 import MessageBubble from '../components/agent/MessageBubble';
+import TemplatesModal from '../components/agent/TemplatesModal';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +22,7 @@ export default function AgentStudio() {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [showTemplates, setShowTemplates] = useState(false);
   const scrollAreaRef = useRef(null);
 
   useEffect(() => {
@@ -130,6 +132,11 @@ export default function AgentStudio() {
 
   return (
     <div className="h-screen flex bg-slate-50">
+      <TemplatesModal
+        open={showTemplates}
+        onClose={() => setShowTemplates(false)}
+        onSelect={(prompt) => setUserInput(prompt)}
+      />
             {/* Sidebar for conversations */}
             <div className="w-1/4 min-w-[250px] bg-white border-r p-4 flex flex-col">
                 <div className="flex justify-between items-center mb-4">
@@ -157,6 +164,10 @@ export default function AgentStudio() {
         <>
                         <div className="flex items-center justify-between px-6 py-3 border-b bg-white">
                             <h3 className="font-semibold text-gray-700 text-sm truncate">{activeConversation?.metadata?.name || 'Conversation'}</h3>
+                            <div className="flex items-center gap-2">
+                            <Button size="sm" variant="outline" className="gap-2 text-xs" onClick={() => setShowTemplates(true)}>
+                                <LayoutTemplate className="h-3.5 w-3.5" /> Templates
+                            </Button>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button size="sm" variant="outline" className="gap-2 text-xs">
@@ -172,6 +183,7 @@ export default function AgentStudio() {
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
+                            </div>
                         </div>
                         <div className="flex-grow p-6 overflow-y-auto" ref={scrollAreaRef}>
                             <div className="space-y-4">
