@@ -21,17 +21,17 @@ const FunctionDisplay = ({ toolCall }) => {
   })();
 
   const isError = results && (
-  typeof results === 'string' && /error|failed/i.test(results) ||
-  parsedResults?.success === false);
-
+    typeof results === 'string' && /error|failed/i.test(results) ||
+    parsedResults?.success === false
+  );
 
   const statusConfig = {
     pending: { icon: Clock, color: 'text-slate-400', text: 'Pending' },
     running: { icon: Loader2, color: 'text-slate-500', text: 'Running...', spin: true },
     in_progress: { icon: Loader2, color: 'text-slate-500', text: 'Running...', spin: true },
-    completed: isError ?
-    { icon: AlertCircle, color: 'text-red-500', text: 'Failed' } :
-    { icon: CheckCircle2, color: 'text-green-600', text: 'Success' },
+    completed: isError
+      ? { icon: AlertCircle, color: 'text-red-500', text: 'Failed' }
+      : { icon: CheckCircle2, color: 'text-green-600', text: 'Success' },
     success: { icon: CheckCircle2, color: 'text-green-600', text: 'Success' },
     failed: { icon: AlertCircle, color: 'text-red-500', text: 'Failed' },
     error: { icon: AlertCircle, color: 'text-red-500', text: 'Failed' }
@@ -42,56 +42,53 @@ const FunctionDisplay = ({ toolCall }) => {
 
   return (
     <div className="mt-2 text-xs">
-            <button
+      <button
         onClick={() => setExpanded(!expanded)}
         className={cn(
           "flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all",
           "hover:bg-slate-50",
           expanded ? "bg-slate-50 border-slate-300" : "bg-white border-slate-200"
         )}>
-        
-                <Icon className={cn("h-3 w-3", statusConfig.color, statusConfig.spin && "animate-spin")} />
-                <span className="text-slate-700">{formattedName}</span>
-                {statusConfig.text &&
-        <span className={cn("text-slate-500", isError && "text-red-600")}>
-                        • {statusConfig.text}
-                    </span>
-        }
-                {!statusConfig.spin && (toolCall.arguments_string || results) &&
-        <ChevronRight className={cn("h-3 w-3 text-slate-400 transition-transform ml-auto",
-        expanded && "rotate-90")} />
-        }
-            </button>
-            
-            {expanded && !statusConfig.spin &&
-      <div className="mt-1.5 ml-3 pl-3 border-l-2 border-slate-200 space-y-2">
-                    {toolCall.arguments_string &&
-        <div>
-                            <div className="text-xs text-slate-500 mb-1">Parameters:</div>
-                            <pre className="bg-slate-50 rounded-md p-2 text-xs text-slate-600 whitespace-pre-wrap">
-                                {(() => {
-              try {
-                return JSON.stringify(JSON.parse(toolCall.arguments_string), null, 2);
-              } catch {
-                return toolCall.arguments_string;
-              }
-            })()}
-                            </pre>
-                        </div>
-        }
-                    {parsedResults &&
-        <div>
-                            <div className="text-xs text-slate-500 mb-1">Result:</div>
-                            <pre className="bg-slate-50 rounded-md p-2 text-xs text-slate-600 whitespace-pre-wrap max-h-48 overflow-auto">
-                                {typeof parsedResults === 'object' ?
-            JSON.stringify(parsedResults, null, 2) : parsedResults}
-                            </pre>
-                        </div>
-        }
-                </div>
-      }
-        </div>);
+        <Icon className={cn("h-3 w-3", statusConfig.color, statusConfig.spin && "animate-spin")} />
+        <span className="text-slate-700">{formattedName}</span>
+        {statusConfig.text && (
+          <span className={cn("text-slate-500", isError && "text-red-600")}>
+            • {statusConfig.text}
+          </span>
+        )}
+        {!statusConfig.spin && (toolCall.arguments_string || results) && (
+          <ChevronRight className={cn("h-3 w-3 text-slate-400 transition-transform ml-auto", expanded && "rotate-90")} />
+        )}
+      </button>
 
+      {expanded && !statusConfig.spin && (
+        <div className="mt-1.5 ml-3 pl-3 border-l-2 border-slate-200 space-y-2">
+          {toolCall.arguments_string && (
+            <div>
+              <div className="text-xs text-slate-500 mb-1">Parameters:</div>
+              <pre className="bg-slate-50 rounded-md p-2 text-xs text-slate-600 whitespace-pre-wrap">
+                {(() => {
+                  try {
+                    return JSON.stringify(JSON.parse(toolCall.arguments_string), null, 2);
+                  } catch {
+                    return toolCall.arguments_string;
+                  }
+                })()}
+              </pre>
+            </div>
+          )}
+          {parsedResults && (
+            <div>
+              <div className="text-xs text-slate-500 mb-1">Result:</div>
+              <pre className="bg-slate-50 rounded-md p-2 text-xs text-slate-600 whitespace-pre-wrap max-h-48 overflow-auto">
+                {typeof parsedResults === 'object' ? JSON.stringify(parsedResults, null, 2) : parsedResults}
+              </pre>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
 };
 
 
@@ -100,75 +97,73 @@ export default function MessageBubble({ message }) {
   const Icon = isUser ? User : Bot;
 
   return (
-    <div className={cn("flex gap-3 my-4", isUser && "justify-end")}>
-            {!isUser &&
-      <div className="h-8 w-8 rounded-lg bg-slate-200 flex items-center justify-center shrink-0 mt-1">
-                    <Icon className="h-5 w-5 text-slate-600" />
-                </div>
-      }
-            <div className={cn("max-w-[85%]", isUser && "flex flex-col items-end")}>
-                <div className={cn(
-          "rounded-xl px-4 py-3",
-          isUser ? "bg-indigo-600 text-white" : "bg-white border border-slate-200"
+    <div className={cn("flex gap-3 my-4", isUser ? "justify-end" : "justify-start")}>
+      {!isUser && (
+        <div className="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center shrink-0 mt-2 shadow-sm">
+          <Icon className="h-4 w-4 text-white" />
+        </div>
+      )}
+
+      <div className={cn("max-w-[75%]", isUser && "flex flex-col items-end")}>
+        <div className={cn(
+          "px-5 py-4 shadow-sm text-sm leading-relaxed",
+          isUser
+            ? "bg-indigo-600 text-white rounded-2xl rounded-br-none shadow-md"
+            : "bg-white text-gray-800 rounded-2xl rounded-bl-none border border-gray-100"
         )}>
-                    {message.content &&
-          <ReactMarkdown
-            className="text-sm prose prose-sm prose-slate max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
-            components={{
-              code({ node, inline, className, children, ...props }) {
-                // Bulletproof fix - ensure className is a string before calling match
-                const match = typeof className === 'string' && className.match(/language-(\w+)/);
-                const textContent = String(children).replace(/\n$/, '');
+          {message.content && (
+            <ReactMarkdown
+              className="prose prose-sm max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+              components={{
+                code({ node, inline, className, children, ...props }) {
+                  const match = typeof className === 'string' && className.match(/language-(\w+)/);
+                  const textContent = String(children).replace(/\n$/, '');
 
-                if (!inline && match) {
+                  if (!inline && match) {
+                    return (
+                      <div className="relative group/code my-2">
+                        <pre className="bg-slate-800 text-slate-100 rounded-lg p-3 overflow-x-auto">
+                          <code {...props} className={className}>{children}</code>
+                        </pre>
+                        <Button
+                          size="icon" variant="ghost"
+                          className="absolute top-2 right-2 h-6 w-6 opacity-0 group-hover/code:opacity-100 bg-slate-700 hover:bg-slate-600"
+                          onClick={() => { navigator.clipboard.writeText(textContent); toast.success('Code copied'); }}
+                        >
+                          <Copy className="h-3 w-3 text-slate-300" />
+                        </Button>
+                      </div>
+                    );
+                  }
+
                   return (
-                    <div className="relative group/code my-2">
-                                                <pre className="bg-slate-800 text-slate-100 rounded-lg p-3 overflow-x-auto">
-                                                    <code {...props} className={className}>
-                                                        {children}
-                                                    </code>
-                                                </pre>
-                                                <Button
-                        size="icon" variant="ghost"
-                        className="absolute top-2 right-2 h-6 w-6 opacity-0 group-hover/code:opacity-100 bg-slate-700 hover:bg-slate-600"
-                        onClick={() => {
-                          navigator.clipboard.writeText(textContent);
-                          toast.success('Code copied');
-                        }}>
-                        
-                                                    <Copy className="h-3 w-3 text-slate-300" />
-                                                </Button>
-                                            </div>);
-
-                }
-
-                return (
-                  <code {...props} className="px-1 py-0.5 rounded bg-slate-100 text-indigo-600 font-mono text-xs">
-                                            {children}
-                                        </code>);
-
-              },
-              p: ({ children }) => <p className="bg-purple-600 my-1 leading-relaxed">{children}</p>
-            }}>
-            
-                            {message.content}
-                        </ReactMarkdown>
-          }
-                </div>
-                
-                {message.tool_calls?.length > 0 &&
-        <div className="space-y-1">
-                        {message.tool_calls.map((toolCall, idx) =>
-          <FunctionDisplay key={idx} toolCall={toolCall} />
+                    <code {...props} className="px-1 py-0.5 rounded bg-slate-100 text-indigo-600 font-mono text-xs">
+                      {children}
+                    </code>
+                  );
+                },
+                p: ({ children }) => <p className="my-1 leading-relaxed">{children}</p>
+              }}
+            >
+              {message.content}
+            </ReactMarkdown>
           )}
-                    </div>
-        }
-            </div>
-             {isUser &&
-      <div className="h-8 w-8 rounded-lg bg-slate-800 flex items-center justify-center shrink-0 mt-1">
-                    <Icon className="h-5 w-5 text-white" />
-                </div>
-      }
-        </div>);
+        </div>
 
+        {message.tool_calls?.length > 0 && (
+          <div className="space-y-1 mt-1">
+            {message.tool_calls.map((toolCall, idx) => (
+              <FunctionDisplay key={idx} toolCall={toolCall} />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {isUser && (
+        <div className="h-8 w-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 mt-2 shadow-sm">
+          <Icon className="h-4 w-4 text-white" />
+        </div>
+      )}
+    </div>
+  );
 }
