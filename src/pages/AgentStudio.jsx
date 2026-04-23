@@ -1,12 +1,17 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { agentSDK } from '@/agents';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Bot, Plus, Send } from 'lucide-react';
+import { Bot, Plus, Send, Download, FileText, FileDown } from 'lucide-react';
 import MessageBubble from '../components/agent/MessageBubble';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const AGENT_NAME = 'CampaignStrategist';
 
@@ -66,6 +71,51 @@ export default function AgentStudio() {
     await loadConversation(newConvo.id);
   };
 
+  const exportAsMarkdown = () => {
+    const title = activeConversation?.metadata?.name || 'Conversation';
+    const lines = [`# ${title}\n`, `*Exported on ${new Date().toLocaleString()}*\n\n---\n`];
+    messages.forEach((msg) => {
+      const role = msg.role === 'user' ? '**You**' : '**Campaign Strategist**';
+      lines.push(`${role}\n\n${msg.content || ''}\n\n---\n`);
+    });
+    const blob = new Blob([lines.join('\n')], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${title.replace(/\s+/g, '_')}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const exportAsPDF = () => {
+    const title = activeConversation?.metadata?.name || 'Conversation';
+    const printWindow = window.open('', '_blank');
+    const html = `
+      <!DOCTYPE html><html><head>
+      <title>${title}</title>
+      <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #1a1a1a; }
+        h1 { color: #4f46e5; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px; }
+        .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+        .message { margin-bottom: 24px; padding: 16px; border-radius: 12px; }
+        .user { background: #eef2ff; border-left: 4px solid #4f46e5; }
+        .assistant { background: #f9fafb; border-left: 4px solid #9ca3af; }
+        .role { font-weight: bold; font-size: 13px; margin-bottom: 6px; color: #374151; }
+        .content { line-height: 1.7; white-space: pre-wrap; }
+      </style></head><body>
+      <h1>${title}</h1>
+      <div class="meta">Exported on ${new Date().toLocaleString()}</div>
+      ${messages.map((msg) => `
+        <div class="message ${msg.role}">
+          <div class="role">${msg.role === 'user' ? 'You' : 'Campaign Strategist'}</div>
+          <div class="content">${(msg.content || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+        </div>`).join('')}
+      </body></html>`;
+    printWindow.document.write(html);
+    printWindow.document.close();
+    printWindow.onload = () => { printWindow.print(); };
+  };
+
   const handleSendMessage = async () => {
     if (!userInput.trim() || !activeConversation) return;
 
@@ -105,6 +155,24 @@ export default function AgentStudio() {
             <div className="flex-grow flex flex-col h-full">
                 {activeConversation ?
         <>
+                        <div className="flex items-center justify-between px-6 py-3 border-b bg-white">
+                            <h3 className="font-semibold text-gray-700 text-sm truncate">{activeConversation?.metadata?.name || 'Conversation'}</h3>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button size="sm" variant="outline" className="gap-2 text-xs">
+                                        <Download className="h-3.5 w-3.5" /> Export
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                    <DropdownMenuItem onClick={exportAsMarkdown} className="gap-2 cursor-pointer">
+                                        <FileText className="h-4 w-4 text-indigo-500" /> Download as Markdown
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={exportAsPDF} className="gap-2 cursor-pointer">
+                                        <FileDown className="h-4 w-4 text-rose-500" /> Export as PDF
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </div>
                         <div className="flex-grow p-6 overflow-y-auto" ref={scrollAreaRef}>
                             <div className="space-y-4">
                                 {messages.map((msg, index) =>
