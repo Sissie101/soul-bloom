@@ -148,7 +148,7 @@ export default function MessageBubble({ message }) {
                                         </code>);
 
               },
-              p: ({ children }) => <p className="bg-rose-500 my-1 leading-relaxed">{children}</p>
+              p: ({ children }) => <p className="bg-purple-600 my-1 leading-relaxed">{children}</p>
             }}>
             
                             {message.content}
