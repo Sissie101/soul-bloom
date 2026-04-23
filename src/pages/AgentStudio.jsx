@@ -1,6 +1,6 @@
+
 import React, { useState, useEffect, useRef } from 'react';
-import { base44 } from '@/api/base44Client';
-const agentSDK = base44.agents;
+import { agentSDK } from '@/agents';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -83,17 +83,17 @@ export default function AgentStudio() {
             {/* Sidebar for conversations */}
             <div className="w-1/4 min-w-[250px] bg-white border-r p-4 flex flex-col">
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-fuchsia-500 text-lg font-semibold underline flex items-center gap-2">Special Agent</h2>
-                    <Button size="icon" variant="ghost" onClick={handleNewConversation} className="text-rose-400 text-xl font-bold uppercase rounded-md inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 w-9"><Plus /></Button>
+                    <h2 className="text-lg font-semibold flex items-center gap-2"><Bot /> Agent Conversations</h2>
+                    <Button size="icon" variant="ghost" onClick={handleNewConversation}><Plus /></Button>
                 </div>
                 <div className="flex-grow overflow-y-auto">
                     <div className="space-y-2 pr-2">
                         {conversations.map((convo) =>
             <button
               key={convo.id}
-              onClick={() => loadConversation(convo.id)} className="bg-teal-200 text-pink-500 px-5 py-3 text-base font-semibold text-right underline capitalize opacity-85 rounded w-full hover:bg-slate-100">
-
-
+              onClick={() => loadConversation(convo.id)}
+              className={`w-full text-left p-2 rounded-md text-sm ${activeConversation?.id === convo.id ? 'bg-indigo-100 text-indigo-800' : 'hover:bg-slate-100'}`}>
+              
                                 {convo.metadata?.name || 'New Conversation'}
                             </button>
             )}
@@ -118,14 +118,14 @@ export default function AgentStudio() {
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Ask the Campaign Strategist..."
-                className="pr-12" />
+                placeholder="Ask the Campaign Strategist..." className="bg-[hsl(var(--background))] pr-12 px-3 py-1 text-base rounded-md flex h-9 w-full border border-input shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" />
 
+              
                                 <Button
                 size="icon"
                 className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
                 onClick={handleSendMessage}>
-
+                
                                     <Send className="h-4 w-4" />
                                 </Button>
                             </div>
