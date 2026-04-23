@@ -49,7 +49,7 @@ const FunctionDisplay = ({ toolCall }) => {
           "hover:bg-slate-50",
           expanded ? "bg-slate-50 border-slate-300" : "bg-white border-slate-200"
         )}>
-
+        
                 <Icon className={cn("h-3 w-3", statusConfig.color, statusConfig.spin && "animate-spin")} />
                 <span className="text-slate-700">{formattedName}</span>
                 {statusConfig.text &&
@@ -107,10 +107,10 @@ export default function MessageBubble({ message }) {
                 </div>
       }
             <div className={cn("max-w-[85%]", isUser && "flex flex-col items-end")}>
-                <div className="bg-white px-4 py-3 opacity-100 rounded-xl border border-slate-200">
+                <div className="bg-white text-red-500 px-4 py-3 opacity-100 rounded-xl border border-slate-200">
 
 
-
+          
                     {message.content &&
           <ReactMarkdown
             className="text-sm prose prose-sm prose-slate max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
@@ -135,7 +135,7 @@ export default function MessageBubble({ message }) {
                           navigator.clipboard.writeText(textContent);
                           toast.success('Code copied');
                         }}>
-
+                        
                                                     <Copy className="h-3 w-3 text-slate-300" />
                                                 </Button>
                                             </div>);
@@ -148,9 +148,9 @@ export default function MessageBubble({ message }) {
                                         </code>);
 
               },
-              p: ({ children }) => <p className="bg-zinc-300 text-fuchsia-950 my-1 text-sm font-medium underline leading-relaxed">{children}</p>
+              p: ({ children }) => <p className="my-1 leading-relaxed">{children}</p>
             }}>
-
+            
                             {message.content}
                         </ReactMarkdown>
           }
