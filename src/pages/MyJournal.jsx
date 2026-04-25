@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { JournalEntry, User } from "@/entities/all";
 import { Button } from "@/components/ui/button";
@@ -6,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { BookOpen, Heart, Calendar, Search, Filter, ArrowLeft } from "lucide-react";
+import { BookOpen, Heart, Calendar, Search, Filter, ArrowLeft, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { format } from "date-fns";
@@ -33,6 +32,29 @@ export default function MyJournal() {
     averageMood: "peaceful",
     completionRate: 0
   });
+
+  const exportToCSV = () => {
+    const headers = ["Day", "Date", "Prompt", "Reflection", "Mood", "Hearts Received", "Voice Note", "Blessing Thread"];
+    const rows = entries.map(e => [
+      e.day_number,
+      format(new Date(e.created_date), 'yyyy-MM-dd'),
+      `"${(e.seed_prompt || "").replace(/"/g, '""')}"`,
+      `"${(e.written_reflection || "").replace(/"/g, '""')}"`,
+      e.mood || "",
+      e.hearts_received || 0,
+      e.voice_note_url || "",
+      e.is_blessing_thread ? "Yes" : "No"
+    ]);
+
+    const csvContent = [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `soul-bloom-journal-${format(new Date(), 'yyyy-MM-dd')}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const applyFilters = React.useCallback(() => {
     let filtered = entries;
@@ -101,10 +123,20 @@ export default function MyJournal() {
               <ArrowLeft className="w-5 h-5" />
             </Button>
           </Link>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-serif font-bold text-sacred-sage">My Sacred Reflections</h1>
             <p className="text-gray-600 font-light">Your journey of self-discovery and growth</p>
           </div>
+          {entries.length > 0 && (
+            <Button
+              onClick={exportToCSV}
+              variant="outline"
+              className="border-sacred-sage/40 text-sacred-sage hover:bg-sage-50 gap-2"
+            >
+              <Download className="w-4 h-4" />
+              Export to CSV
+            </Button>
+          )}
         </div>
 
         {/* Stats Cards */}
