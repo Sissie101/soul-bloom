@@ -42,13 +42,19 @@ export default function SoundscapePlayer({ soundscape, onComplete }) {
     }
   }, [volume, isMuted]);
 
-  const togglePlayPause = () => {
+  const togglePlayPause = async () => {
     if (isPlaying) {
       audioRef.current?.pause();
+      setIsPlaying(false);
     } else {
-      audioRef.current?.play();
+      try {
+        await audioRef.current?.play();
+        setIsPlaying(true);
+      } catch (e) {
+        // Audio failed to load or play (e.g. invalid URL) — stay paused
+        setIsPlaying(false);
+      }
     }
-    setIsPlaying(!isPlaying);
   };
 
   const handleSeek = (value) => {
