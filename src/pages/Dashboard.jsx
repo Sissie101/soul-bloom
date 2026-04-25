@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Flower2, Heart, Sparkles, ArrowRight, BookOpen, Users } from "lucide-react";
 import { format } from "date-fns";
+import DashboardCharts from "../components/dashboard/DashboardCharts";
 
 export default function Dashboard() {
   const [currentUser, setCurrentUser] = useState(null);
   const [todaysSeed, setTodaysSeed] = useState(null);
   const [recentEntries, setRecentEntries] = useState([]);
+  const [allEntries, setAllEntries] = useState([]);
   const [journeyStats, setJourneyStats] = useState({
     totalEntries: 0,
     heartsReceived: 0,
@@ -37,11 +39,12 @@ export default function Dashboard() {
       setRecentEntries(entries);
 
       // Calculate stats
-      const allEntries = await JournalEntry.filter({ created_by: user.email });
-      const totalHearts = allEntries.reduce((sum, entry) => sum + (entry.hearts_received || 0), 0);
+      const allEntriesData = await JournalEntry.filter({ created_by: user.email });
+      setAllEntries(allEntriesData);
+      const totalHearts = allEntriesData.reduce((sum, entry) => sum + (entry.hearts_received || 0), 0);
       
       setJourneyStats({
-        totalEntries: allEntries.length,
+        totalEntries: allEntriesData.length,
         heartsReceived: totalHearts,
         currentDay: Math.min(allEntries.length + 1, 30)
       });
@@ -119,6 +122,9 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Charts */}
+        <DashboardCharts entries={allEntries} />
 
         {/* Today's Seed */}
         {todaysSeed && (
