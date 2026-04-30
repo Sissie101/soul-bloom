@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Button } from "@/components/ui/button";
-import { Copy, Zap, CheckCircle2, AlertCircle, Loader2, ChevronRight, Clock, Bot, User } from 'lucide-react';
+import { Copy, Zap, CheckCircle2, AlertCircle, Loader2, ChevronRight, Clock, Bot, User, Volume2, VolumeX } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
@@ -85,8 +85,75 @@ const FunctionDisplay = ({ toolCall }) => {
   );
 };
 
+const ReadAloudButton = ({ text }) => {
+  const [speaking, setSpeaking] = useState(false);
+  const utteranceRef = useRef(null);
+
+  const handleToggle = () => {
+    if (speaking) {
+      window.speechSynthesis.cancel();
+      setSpeaking(false);
+      return;
+    }
+    // Strip markdown syntax for clean speech
+    const clean = text
+      .replace(/[#*`_~>\[\]()]/g, '')
+      .replace(/\n+/g, ' ')
+      .trim();
+
+    const utterance = new SpeechSynthesisUtterance(clean);
+    utterance.rate = 0.95;
+    utterance.pitch = 1.05;
+    utterance.onend = () => setSpeaking(false);
+    utterance.onerror = () => setSpeaking(false);
+    utteranceRef.current = utterance;
+    setSpeaking(true);
+    window.speechSynthesis.speak(utterance);
+  };
+
+  return (
+    <button
+      onClick={handleToggle}
+      title={speaking ? 'Stop reading' : 'Read aloud'}
+      className={cn(
+        "flex items-center gap-1.5 mt-2 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 border",
+        speaking
+          ? "bg-violet-500/20 border-violet-400/40 text-violet-300"
+          : "bg-white/5 border-white/10 text-white/30 hover:text-white/60 hover:bg-white/10 hover:border-white/20"
+      )}
+    >
+      {speaking ? (
+        <>
+          <VolumeX className="w-3 h-3 shrink-0" />
+          {/* Animated waveform bars */}
+          <span className="flex items-end gap-[2px] h-3">
+            {[0.6, 1, 0.7, 0.9, 0.5].map((h, i) => (
+              <span
+                key={i}
+                className="w-[3px] bg-violet-400 rounded-full animate-bounce"
+                style={{
+                  height: `${h * 12}px`,
+                  animationDelay: `${i * 0.1}s`,
+                  animationDuration: '0.6s'
+                }}
+              />
+            ))}
+          </span>
+          <span>Stop</span>
+        </>
+      ) : (
+        <>
+          <Volume2 className="w-3 h-3 shrink-0" />
+          <span>Read aloud</span>
+        </>
+      )}
+    </button>
+  );
+};
+
 export default function MessageBubble({ message }) {
   const isUser = message.role === 'user';
+  const isLongMessage = !isUser && message.content && message.content.length > 200;
 
   return (
     <div className={cn("flex gap-3 my-3", isUser ? "justify-end" : "justify-start")}>
@@ -154,6 +221,8 @@ export default function MessageBubble({ message }) {
             </ReactMarkdown>
           )}
         </div>
+
+        {isLongMessage && <ReadAloudButton text={message.content} />}
 
         {message.tool_calls?.length > 0 && (
           <div className="space-y-1 mt-1 w-full">
