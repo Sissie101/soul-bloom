@@ -13,11 +13,8 @@ const FunctionDisplay = ({ toolCall }) => {
 
   const parsedResults = (() => {
     if (!results) return null;
-    try {
-      return typeof results === 'string' ? JSON.parse(results) : results;
-    } catch {
-      return results;
-    }
+    try { return typeof results === 'string' ? JSON.parse(results) : results; }
+    catch { return results; }
   })();
 
   const isError = results && (
@@ -26,16 +23,16 @@ const FunctionDisplay = ({ toolCall }) => {
   );
 
   const statusConfig = {
-    pending: { icon: Clock, color: 'text-slate-400', text: 'Pending' },
-    running: { icon: Loader2, color: 'text-slate-500', text: 'Running...', spin: true },
-    in_progress: { icon: Loader2, color: 'text-slate-500', text: 'Running...', spin: true },
+    pending: { icon: Clock, color: 'text-white/40', text: 'Pending' },
+    running: { icon: Loader2, color: 'text-violet-300', text: 'Running...', spin: true },
+    in_progress: { icon: Loader2, color: 'text-violet-300', text: 'Running...', spin: true },
     completed: isError
-      ? { icon: AlertCircle, color: 'text-red-500', text: 'Failed' }
-      : { icon: CheckCircle2, color: 'text-green-600', text: 'Success' },
-    success: { icon: CheckCircle2, color: 'text-green-600', text: 'Success' },
-    failed: { icon: AlertCircle, color: 'text-red-500', text: 'Failed' },
-    error: { icon: AlertCircle, color: 'text-red-500', text: 'Failed' }
-  }[status] || { icon: Zap, color: 'text-slate-500', text: '' };
+      ? { icon: AlertCircle, color: 'text-rose-400', text: 'Failed' }
+      : { icon: CheckCircle2, color: 'text-emerald-400', text: 'Done' },
+    success: { icon: CheckCircle2, color: 'text-emerald-400', text: 'Done' },
+    failed: { icon: AlertCircle, color: 'text-rose-400', text: 'Failed' },
+    error: { icon: AlertCircle, color: 'text-rose-400', text: 'Failed' }
+  }[status] || { icon: Zap, color: 'text-white/40', text: '' };
 
   const Icon = statusConfig.icon;
   const formattedName = name.split('.').reverse().join(' ').toLowerCase();
@@ -45,42 +42,39 @@ const FunctionDisplay = ({ toolCall }) => {
       <button
         onClick={() => setExpanded(!expanded)}
         className={cn(
-          "flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all",
-          "hover:bg-slate-50",
-          expanded ? "bg-slate-50 border-slate-300" : "bg-white border-slate-200"
-        )}>
-        <Icon className={cn("h-3 w-3", statusConfig.color, statusConfig.spin && "animate-spin")} />
-        <span className="text-slate-700">{formattedName}</span>
+          "flex items-center gap-2 px-3 py-2 rounded-xl border transition-all duration-200",
+          expanded
+            ? "bg-white/10 border-white/20"
+            : "bg-white/5 border-white/10 hover:bg-white/8"
+        )}
+      >
+        <Icon className={cn("h-3 w-3 shrink-0", statusConfig.color, statusConfig.spin && "animate-spin")} />
+        <span className="text-white/70 font-medium">{formattedName}</span>
         {statusConfig.text && (
-          <span className={cn("text-slate-500", isError && "text-red-600")}>
-            • {statusConfig.text}
-          </span>
+          <span className={cn("text-white/40", isError && "text-rose-400")}>· {statusConfig.text}</span>
         )}
         {!statusConfig.spin && (toolCall.arguments_string || results) && (
-          <ChevronRight className={cn("h-3 w-3 text-slate-400 transition-transform ml-auto", expanded && "rotate-90")} />
+          <ChevronRight className={cn("h-3 w-3 text-white/30 transition-transform ml-auto", expanded && "rotate-90")} />
         )}
       </button>
 
       {expanded && !statusConfig.spin && (
-        <div className="mt-1.5 ml-3 pl-3 border-l-2 border-slate-200 space-y-2">
+        <div className="mt-1.5 ml-3 pl-3 border-l border-white/10 space-y-2">
           {toolCall.arguments_string && (
             <div>
-              <div className="text-xs text-slate-500 mb-1">Parameters:</div>
-              <pre className="bg-slate-50 rounded-md p-2 text-xs text-slate-600 whitespace-pre-wrap">
+              <div className="text-white/30 mb-1">Parameters</div>
+              <pre className="bg-black/30 rounded-lg p-2 text-white/60 whitespace-pre-wrap text-[11px] overflow-x-auto">
                 {(() => {
-                  try {
-                    return JSON.stringify(JSON.parse(toolCall.arguments_string), null, 2);
-                  } catch {
-                    return toolCall.arguments_string;
-                  }
+                  try { return JSON.stringify(JSON.parse(toolCall.arguments_string), null, 2); }
+                  catch { return toolCall.arguments_string; }
                 })()}
               </pre>
             </div>
           )}
           {parsedResults && (
             <div>
-              <div className="text-xs text-slate-500 mb-1">Result:</div>
-              <pre className="bg-slate-50 rounded-md p-2 text-xs text-slate-600 whitespace-pre-wrap max-h-48 overflow-auto">
+              <div className="text-white/30 mb-1">Result</div>
+              <pre className="bg-black/30 rounded-lg p-2 text-white/60 whitespace-pre-wrap text-[11px] max-h-48 overflow-auto">
                 {typeof parsedResults === 'object' ? JSON.stringify(parsedResults, null, 2) : parsedResults}
               </pre>
             </div>
@@ -91,58 +85,69 @@ const FunctionDisplay = ({ toolCall }) => {
   );
 };
 
-
 export default function MessageBubble({ message }) {
   const isUser = message.role === 'user';
-  const Icon = isUser ? User : Bot;
 
   return (
-    <div className={cn("flex gap-3 my-4", isUser ? "justify-end" : "justify-start")}>
+    <div className={cn("flex gap-3 my-3", isUser ? "justify-end" : "justify-start")}>
       {!isUser && (
-        <div className="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center shrink-0 mt-2 shadow-sm">
-          <Icon className="h-4 w-4 text-white" />
+        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shrink-0 mt-1 shadow-md shadow-violet-900/40">
+          <Bot className="w-3.5 h-3.5 text-white" />
         </div>
       )}
 
-      <div className={cn("max-w-[75%]", isUser && "flex flex-col items-end")}>
+      <div className={cn("max-w-[76%] min-w-0", isUser && "flex flex-col items-end")}>
         <div className={cn(
-          "px-5 py-4 shadow-sm text-sm leading-relaxed",
+          "px-4 py-3 text-sm leading-relaxed rounded-2xl",
           isUser
-            ? "bg-indigo-600 text-white rounded-2xl rounded-br-none shadow-md"
-            : "bg-white text-gray-800 rounded-2xl rounded-bl-none border border-gray-100"
+            ? "bg-gradient-to-br from-violet-600 to-indigo-700 text-white rounded-br-sm shadow-lg shadow-violet-900/40"
+            : "bg-white/8 text-white/90 rounded-bl-sm border border-white/10 backdrop-blur-sm"
         )}>
           {message.content && (
             <ReactMarkdown
-              className="prose prose-sm max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+              className={cn(
+                "prose prose-sm max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
+                isUser ? "prose-invert" : "prose-invert"
+              )}
               components={{
-                code({ node, inline, className, children, ...props }) {
-                  const match = typeof className === 'string' && className.match(/language-(\w+)/);
+                code({ inline, className, children, ...props }) {
+                  const match = typeof className === 'string' ? className.match(/language-(\w+)/) : null;
                   const textContent = String(children).replace(/\n$/, '');
-
                   if (!inline && match) {
                     return (
                       <div className="relative group/code my-2">
-                        <pre className="bg-slate-800 text-slate-100 rounded-lg p-3 overflow-x-auto">
+                        <pre className="bg-black/50 text-slate-200 rounded-xl p-3 overflow-x-auto border border-white/10">
                           <code {...props} className={className}>{children}</code>
                         </pre>
                         <Button
                           size="icon" variant="ghost"
-                          className="absolute top-2 right-2 h-6 w-6 opacity-0 group-hover/code:opacity-100 bg-slate-700 hover:bg-slate-600"
-                          onClick={() => { navigator.clipboard.writeText(textContent); toast.success('Code copied'); }}
+                          className="absolute top-2 right-2 h-6 w-6 opacity-0 group-hover/code:opacity-100 bg-white/10 hover:bg-white/20"
+                          onClick={() => { navigator.clipboard.writeText(textContent); toast.success('Copied'); }}
                         >
-                          <Copy className="h-3 w-3 text-slate-300" />
+                          <Copy className="h-3 w-3 text-white/70" />
                         </Button>
                       </div>
                     );
                   }
-
                   return (
-                    <code {...props} className="px-1 py-0.5 rounded bg-slate-100 text-indigo-600 font-mono text-xs">
+                    <code {...props} className="px-1 py-0.5 rounded bg-white/10 text-violet-300 font-mono text-xs">
                       {children}
                     </code>
                   );
                 },
-                p: ({ children }) => <p className="my-1 leading-relaxed">{children}</p>
+                p: ({ children }) => <p className="my-1 leading-relaxed text-white/90">{children}</p>,
+                ul: ({ children }) => <ul className="my-1 ml-4 list-disc text-white/80">{children}</ul>,
+                ol: ({ children }) => <ol className="my-1 ml-4 list-decimal text-white/80">{children}</ol>,
+                li: ({ children }) => <li className="my-0.5">{children}</li>,
+                h1: ({ children }) => <h1 className="text-base font-bold my-2 text-white">{children}</h1>,
+                h2: ({ children }) => <h2 className="text-sm font-bold my-2 text-white">{children}</h2>,
+                h3: ({ children }) => <h3 className="text-sm font-semibold my-1.5 text-white/90">{children}</h3>,
+                strong: ({ children }) => <strong className="font-semibold text-white">{children}</strong>,
+                blockquote: ({ children }) => (
+                  <blockquote className="border-l-2 border-violet-400/50 pl-3 my-2 text-white/60 italic">
+                    {children}
+                  </blockquote>
+                ),
               }}
             >
               {message.content}
@@ -151,17 +156,17 @@ export default function MessageBubble({ message }) {
         </div>
 
         {message.tool_calls?.length > 0 && (
-          <div className="space-y-1 mt-1">
-            {message.tool_calls.map((toolCall, idx) => (
-              <FunctionDisplay key={idx} toolCall={toolCall} />
+          <div className="space-y-1 mt-1 w-full">
+            {message.tool_calls.map((tc, idx) => (
+              <FunctionDisplay key={idx} toolCall={tc} />
             ))}
           </div>
         )}
       </div>
 
       {isUser && (
-        <div className="h-8 w-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 mt-2 shadow-sm">
-          <Icon className="h-4 w-4 text-white" />
+        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center shrink-0 mt-1 shadow-md border border-white/10">
+          <User className="w-3.5 h-3.5 text-white/80" />
         </div>
       )}
     </div>
