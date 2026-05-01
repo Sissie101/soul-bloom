@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
+import ProGate from '@/components/subscription/ProGate';
 import { syncSocialAnalytics } from '@/functions/syncSocialAnalytics';
 import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -103,6 +104,7 @@ export default function SocialAnalyticsDashboard() {
   const ctr = totals.impressions > 0 ? ((totals.clicks / totals.impressions) * 100).toFixed(2) : '0.00';
 
   return (
+    <ProGate featureName="Premium Social Analytics">
     <div className="min-h-screen p-6 space-y-6" style={{
       background: 'linear-gradient(135deg, #0f0c29 0%, #1a1040 40%, #24243e 100%)'
     }}>
@@ -228,5 +230,6 @@ export default function SocialAnalyticsDashboard() {
       {/* AI Insights */}
       <AIInsightsPanel metrics={totals} platformBreakdown={platformBreakdown} />
     </div>
+    </ProGate>
   );
 }

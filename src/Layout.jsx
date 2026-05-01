@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Flower2, Heart, Users, BookOpen, Sparkles, Home, Lightbulb, Megaphone, PieChart, Bot, Wrench, Mail, MessageCircle, Library, Trash2, AlertTriangle } from "lucide-react";
+import { Flower2, Heart, Users, BookOpen, Sparkles, Home, Lightbulb, Megaphone, PieChart, Bot, Wrench, Mail, MessageCircle, Library, Trash2, AlertTriangle, Crown } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import {
   Sidebar,
@@ -37,6 +37,7 @@ const marketingStrategyItems = [
   { title: "Content Insights", url: createPageUrl("ContentInsights"), icon: Library },
   { title: "Tracking Setup", url: createPageUrl("TrackingSetup"), icon: Wrench },
   { title: "Social Analytics", url: "/SocialAnalyticsDashboard", icon: PieChart },
+  { title: "Upgrade to Pro", url: "/Pricing", icon: Crown },
 ];
 
 const bottomNavItems = [

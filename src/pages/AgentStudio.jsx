@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
+import ProGate from '@/components/subscription/ProGate';
 import { Button } from '@/components/ui/button';
 import { Bot, Plus, Sparkles, LayoutTemplate, Download, FileText, FileDown, MessageCircle, Trash2, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -138,6 +139,7 @@ export default function AgentStudio() {
   };
 
   return (
+    <ProGate featureName="Campaign Strategist AI">
     <div className="h-screen flex overflow-hidden" style={{
       background: 'linear-gradient(135deg, #0f0c29 0%, #1a1040 40%, #24243e 100%)'
     }}>
@@ -343,5 +345,6 @@ export default function AgentStudio() {
         </AnimatePresence>
       </div>
     </div>
+    </ProGate>
   );
 }

@@ -1,0 +1,30 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "user"
+      ],
+      "default": "user"
+    },
+    "subscription_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "inactive",
+      "description": "Stripe subscription status"
+    },
+    "subscription_plan": {
+      "type": "string",
+      "enum": [
+        "pro"
+      ],
+      "description": "Active subscription plan"
+    }
+  }
+}

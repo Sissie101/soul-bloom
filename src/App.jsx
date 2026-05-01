@@ -10,6 +10,8 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import SocialAnalyticsDashboard from './pages/SocialAnalyticsDashboard';
+import Pricing from './pages/Pricing';
+import SubscriptionSuccess from './pages/SubscriptionSuccess';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -55,6 +57,8 @@ const AuthenticatedApp = () => {
             <SocialAnalyticsDashboard />
           </LayoutWrapper>
         } />
+        <Route path="/Pricing" element={<Pricing />} />
+        <Route path="/SubscriptionSuccess" element={<SubscriptionSuccess />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </LayoutWrapper>
