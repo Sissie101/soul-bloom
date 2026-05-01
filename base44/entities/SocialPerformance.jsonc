@@ -1,0 +1,77 @@
+{
+  "name": "SocialPerformance",
+  "type": "object",
+  "properties": {
+    "platform": {
+      "type": "string",
+      "enum": [
+        "tiktok",
+        "instagram",
+        "facebook",
+        "linkedin",
+        "organic"
+      ],
+      "description": "Social media platform"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Related campaign ID"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the metrics snapshot"
+    },
+    "reach": {
+      "type": "number",
+      "default": 0,
+      "description": "Total unique users reached"
+    },
+    "impressions": {
+      "type": "number",
+      "default": 0,
+      "description": "Total impressions"
+    },
+    "clicks": {
+      "type": "number",
+      "default": 0,
+      "description": "Total link clicks"
+    },
+    "engagement": {
+      "type": "number",
+      "default": 0,
+      "description": "Total engagements (likes, comments, shares)"
+    },
+    "conversions": {
+      "type": "number",
+      "default": 0,
+      "description": "Total conversions attributed"
+    },
+    "spend": {
+      "type": "number",
+      "default": 0,
+      "description": "Ad spend for the period"
+    },
+    "followers_gained": {
+      "type": "number",
+      "default": 0,
+      "description": "New followers gained"
+    }
+  },
+  "required": [
+    "platform",
+    "date"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -36,6 +36,7 @@ const marketingStrategyItems = [
   { title: "Sentiment Analysis", url: createPageUrl("SentimentAnalysis"), icon: MessageCircle },
   { title: "Content Insights", url: createPageUrl("ContentInsights"), icon: Library },
   { title: "Tracking Setup", url: createPageUrl("TrackingSetup"), icon: Wrench },
+  { title: "Social Analytics", url: "/SocialAnalyticsDashboard", icon: PieChart },
 ];
 
 const bottomNavItems = [
