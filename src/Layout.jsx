@@ -32,7 +32,7 @@ const marketingStrategyItems = [
   { title: "Action Center", url: createPageUrl("StrategicActionCenter"), icon: Lightbulb },
   { title: "Agent Studio", url: createPageUrl("AgentStudio"), icon: Bot },
   { title: "Predictive Insights", url: createPageUrl("PredictiveInsights"), icon: Sparkles },
-  { title: "Newsletter Generator", url: createPageUrl("NewsletterGenerator"), icon: Mail },
+  { title: "Content Generator", url: createPageUrl("ContentGenerator"), icon: Mail },
   { title: "Sentiment Analysis", url: createPageUrl("SentimentAnalysis"), icon: MessageCircle },
   { title: "Content Insights", url: createPageUrl("ContentInsights"), icon: Library },
   { title: "Tracking Setup", url: createPageUrl("TrackingSetup"), icon: Wrench },

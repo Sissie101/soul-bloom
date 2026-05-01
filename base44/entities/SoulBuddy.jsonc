@@ -1,0 +1,106 @@
+{
+  "name": "SoulBuddy",
+  "type": "object",
+  "properties": {
+    "buddy_user_email": {
+      "type": "string",
+      "description": "Email of the paired soul sister"
+    },
+    "connection_date": {
+      "type": "string",
+      "format": "date",
+      "description": "When the connection was made"
+    },
+    "mutual_hearts_given": {
+      "type": "number",
+      "default": 0,
+      "description": "Hearts exchanged between buddies"
+    },
+    "shared_reflections": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of shared blessing threads"
+    },
+    "connection_strength": {
+      "type": "string",
+      "enum": [
+        "budding",
+        "blooming",
+        "radiant",
+        "sacred"
+      ],
+      "default": "budding",
+      "description": "Level of spiritual connection"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional notes about this soul buddy connection",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "buddy_user_email"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "buddy_user_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "buddy_user_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "buddy_user_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "buddy_user_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -59,7 +59,7 @@ import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import LandingPageOptimizer from './pages/LandingPageOptimizer';
 import MyJournal from './pages/MyJournal';
-import NewsletterGenerator from './pages/NewsletterGenerator';
+import ContentGenerator from './pages/ContentGenerator';
 import PredictiveInsights from './pages/PredictiveInsights';
 import SacredSoundscapes from './pages/SacredSoundscapes';
 import SentimentAnalysis from './pages/SentimentAnalysis';
@@ -84,7 +84,7 @@ export const PAGES = {
     "Home": Home,
     "LandingPageOptimizer": LandingPageOptimizer,
     "MyJournal": MyJournal,
-    "NewsletterGenerator": NewsletterGenerator,
+    "ContentGenerator": ContentGenerator,
     "PredictiveInsights": PredictiveInsights,
     "SacredSoundscapes": SacredSoundscapes,
     "SentimentAnalysis": SentimentAnalysis,

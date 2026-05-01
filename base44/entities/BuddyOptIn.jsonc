@@ -1,0 +1,69 @@
+{
+  "name": "BuddyOptIn",
+  "type": "object",
+  "properties": {
+    "opted_in_date": {
+      "type": "string",
+      "format": "date",
+      "description": "The date the user opted in for matching."
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional notes or preferences for buddy matching",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "opted_in_date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

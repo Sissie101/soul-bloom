@@ -1,0 +1,122 @@
+{
+  "name": "JournalEntry",
+  "type": "object",
+  "properties": {
+    "day_number": {
+      "type": "number",
+      "description": "Day 1-30 of the journey"
+    },
+    "seed_prompt": {
+      "type": "string",
+      "description": "The daily prompt theme"
+    },
+    "written_reflection": {
+      "type": "string",
+      "description": "Written journal entry"
+    },
+    "voice_note_url": {
+      "type": "string",
+      "description": "URL to voice recording"
+    },
+    "video_note_url": {
+      "type": "string",
+      "description": "URL to video recording"
+    },
+    "mood": {
+      "type": "string",
+      "enum": [
+        "radiant",
+        "peaceful",
+        "searching",
+        "flowing",
+        "grateful",
+        "transforming"
+      ],
+      "description": "Spiritual mood of the day"
+    },
+    "is_blessing_thread": {
+      "type": "boolean",
+      "default": false,
+      "description": "Shared in community blessings"
+    },
+    "hearts_received": {
+      "type": "number",
+      "default": 0,
+      "description": "Gratitude hearts from community"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional short description or summary of this journal entry",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "day_number",
+    "seed_prompt"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "is_blessing_thread": true
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

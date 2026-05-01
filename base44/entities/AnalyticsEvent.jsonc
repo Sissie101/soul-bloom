@@ -1,0 +1,129 @@
+{
+  "name": "AnalyticsEvent",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "click",
+        "conversion",
+        "engagement",
+        "view",
+        "share",
+        "email_open",
+        "signup",
+        "purchase"
+      ],
+      "description": "Type of user action"
+    },
+    "creative_id": {
+      "type": "string",
+      "description": "ID of the creative that generated this event"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "ID of the campaign"
+    },
+    "audience_id": {
+      "type": "string",
+      "description": "ID of the target audience"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "Email of the user who performed the action"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "linkedin",
+        "facebook",
+        "instagram",
+        "email",
+        "website",
+        "organic"
+      ],
+      "description": "Where the event occurred"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional event data (referrer, device, etc.)",
+      "properties": {
+        "referrer": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "session_duration": {
+          "type": "number"
+        },
+        "pages_viewed": {
+          "type": "number"
+        }
+      }
+    },
+    "revenue": {
+      "type": "number",
+      "default": 0,
+      "description": "Revenue attributed to this event"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description or notes about this analytics event",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "event_type",
+    "campaign_id"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by": null
+        }
+      ]
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "Campaign",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "e.g., 'Fase44 Launch', 'Soul Sister Summer'"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "completed",
+        "paused"
+      ],
+      "default": "draft"
+    },
+    "goal": {
+      "type": "string",
+      "description": "Primary objective of the campaign"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional detailed description of the campaign strategy and context",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

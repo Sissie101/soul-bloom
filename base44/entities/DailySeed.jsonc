@@ -1,0 +1,44 @@
+{
+  "name": "DailySeed",
+  "type": "object",
+  "properties": {
+    "day_number": {
+      "type": "number",
+      "description": "Day 1-30"
+    },
+    "title": {
+      "type": "string",
+      "description": "Seed title"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "The spiritual prompt for the day"
+    },
+    "fractal_mission": {
+      "type": "string",
+      "description": "Optional voice/video sidebar mission"
+    },
+    "blessing_theme": {
+      "type": "string",
+      "description": "Community blessing focus"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description providing additional context for this daily seed",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "day_number",
+    "title",
+    "prompt"
+  ],
+  "rls": {
+    "read": {},
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "WaitlistEntry",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the person joining the waitlist"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email of the person joining the waitlist"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional notes or message from the waitlist entrant",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "email"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

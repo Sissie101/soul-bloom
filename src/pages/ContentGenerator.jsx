@@ -18,7 +18,7 @@ const PLATFORMS = [
   { id: 'linkedin', label: 'LinkedIn', icon: Linkedin, color: 'from-sky-600 to-blue-800', charLimit: '1300 chars, professional yet personal, insight-first, no hashtag spam' },
 ];
 
-export default function NewsletterGenerator() {
+export default function ContentGenerator() {
   const [newsletter, setNewsletter] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [tone, setTone] = useState('inspiring');
