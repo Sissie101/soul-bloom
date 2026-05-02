@@ -7,6 +7,7 @@ import { createPageUrl } from "@/utils";
 import { Flower2, Heart, Sparkles, ArrowRight, BookOpen, Users } from "lucide-react";
 import { format } from "date-fns";
 import DashboardCharts from "../components/dashboard/DashboardCharts";
+import SoulBuddyNotificationBanner from "../components/dashboard/SoulBuddyNotificationBanner";
 
 export default function Dashboard() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -72,6 +73,9 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-divine-light via-pearl-white to-gentle-lavender">
       <div className="max-w-6xl mx-auto">
+        {/* Soul Buddy Notification */}
+        <SoulBuddyNotificationBanner userEmail={currentUser?.email} />
+
         {/* Welcome Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-3 mb-4">

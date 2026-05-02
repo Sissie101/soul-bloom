@@ -1,0 +1,71 @@
+{
+  "name": "SoulBuddyNotification",
+  "type": "object",
+  "properties": {
+    "recipient_email": {
+      "type": "string",
+      "description": "Email of the user receiving the notification"
+    },
+    "matched_with_email": {
+      "type": "string",
+      "description": "Email of the matched soul buddy"
+    },
+    "matched_with_name": {
+      "type": "string",
+      "description": "Name of the matched soul buddy"
+    },
+    "match_reason": {
+      "type": "string",
+      "description": "AI-generated reason for the match"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the user has seen the notification"
+    },
+    "soul_buddy_id": {
+      "type": "string",
+      "description": "ID of the created SoulBuddy record"
+    }
+  },
+  "required": [
+    "recipient_email",
+    "matched_with_email"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "recipient_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "recipient_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
