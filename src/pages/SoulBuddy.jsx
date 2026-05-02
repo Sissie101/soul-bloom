@@ -21,10 +21,45 @@ const MatchmakingCard = ({ onMatch, isMatching, hasOptedIn }) => (
     </CardHeader>
     <CardContent>
       {hasOptedIn ? (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-4 p-6 bg-lavender-50/60 rounded-xl border border-lavender-200/50">
-          <Sparkles className="w-8 h-8 mx-auto text-purple-500 mb-3" />
-          <h3 className="font-semibold text-lg text-gray-800">You're on the list!</h3>
-          <p className="text-gray-600 mt-1">The universe is aligning your connection. We'll notify you when your Soul Sister is found.</p>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-4 p-8 rounded-2xl relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, #4c1d95 0%, #3730a3 50%, #5b21b6 100%)',
+            boxShadow: '0 0 30px rgba(167, 139, 250, 0.4), 0 0 60px rgba(212, 175, 55, 0.15), inset 0 1px 0 rgba(255,255,255,0.1)',
+            border: '1px solid rgba(196, 181, 253, 0.4)',
+          }}
+        >
+          {/* Shimmer overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%)',
+              backgroundSize: '200% 100%',
+              animation: 'shimmerSlide 3s ease-in-out infinite',
+            }}
+          />
+          <style>{`
+            @keyframes shimmerSlide {
+              0% { background-position: 200% 0; }
+              100% { background-position: -200% 0; }
+            }
+            @keyframes goldenPulse {
+              0%, 100% { filter: drop-shadow(0 0 4px rgba(212,175,55,0.8)); transform: scale(1); }
+              50% { filter: drop-shadow(0 0 12px rgba(212,175,55,1)); transform: scale(1.15); }
+            }
+          `}</style>
+          <Sparkles
+            className="w-10 h-10 mx-auto mb-4 text-yellow-300"
+            style={{ animation: 'goldenPulse 2s ease-in-out infinite' }}
+          />
+          <h3 className="font-serif font-bold text-2xl text-white mb-2" style={{ textShadow: '0 0 20px rgba(212,175,55,0.6)' }}>
+            You're on the list!
+          </h3>
+          <p className="text-purple-200 mt-1 leading-relaxed">
+            The universe is aligning your connection. We'll notify you when your Soul Sister is found.
+          </p>
         </motion.div>
       ) : (
         <Button
