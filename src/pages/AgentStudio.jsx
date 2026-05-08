@@ -88,6 +88,15 @@ export default function AgentStudio() {
     setActiveConversation(convo);
     setMessages(convo.messages || []);
     scrollToBottom();
+
+    base44.analytics.track({
+      eventName: "campaign_insights_viewed",
+      properties: {
+        conversation_id: id,
+        conversation_name: convo.metadata?.name || "Untitled Session",
+        message_count: (convo.messages || []).length,
+      }
+    });
   };
 
   const handleNewConversation = async () => {
