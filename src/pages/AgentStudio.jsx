@@ -49,14 +49,36 @@ export default function AgentStudio() {
 
   useEffect(() => {
     if (!activeConversation) return;
-    const unsubscribe = base44.agents.subscribeToConversation(activeConversation.id, (data) => {
-      setMessages(data.messages || []);
-      // Detect if agent is still generating (last message is assistant with no content yet)
-      const last = data.messages?.[data.messages.length - 1];
-      setAgentTyping(last?.role === 'assistant' && !last?.content);
-      scrollToBottom();
-    });
-    return () => unsubscribe();
+
+    let unsubscribe;
+    try {
+      unsubscribe = base44.agents.subscribeToConversation(activeConversation.id, (data) => {
+        setMessages(data.messages || []);
+        const last = data.messages?.[data.messages.length - 1];
+        setAgentTyping(last?.role === 'assistant' && !last?.content);
+        scrollToBottom();
+      });
+    } catch (err) {
+      base44.analytics.track({
+        eventName: "websocket_connection_error",
+        properties: {
+          conversation_id: activeConversation.id,
+          error_message: err?.message || "Unknown websocket error",
+        }
+      });
+    }
+
+    const handleOnline = () => base44.analytics.track({ eventName: "websocket_reconnected", properties: { conversation_id: activeConversation.id } });
+    const handleOffline = () => base44.analytics.track({ eventName: "websocket_connection_error", properties: { conversation_id: activeConversation.id, error_message: "Network went offline" } });
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
   }, [activeConversation]);
 
   // Scroll on new messages
