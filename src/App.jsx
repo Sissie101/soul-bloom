@@ -10,6 +10,8 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import SocialAnalyticsDashboard from './pages/SocialAnalyticsDashboard';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import ContentGenerator from './pages/ContentGenerator';
 import Pricing from './pages/Pricing';
 import SubscriptionSuccess from './pages/SubscriptionSuccess';
@@ -65,6 +67,8 @@ const AuthenticatedApp = () => {
           </LayoutWrapper>
         } />
         <Route path="/SubscriptionSuccess" element={<SubscriptionSuccess />} />
+        <Route path="/About" element={<LayoutWrapper currentPageName="About"><About /></LayoutWrapper>} />
+        <Route path="/Contact" element={<LayoutWrapper currentPageName="Contact"><Contact /></LayoutWrapper>} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </LayoutWrapper>

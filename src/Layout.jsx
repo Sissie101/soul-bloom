@@ -300,6 +300,11 @@ export default function Layout({ children, currentPageName }) {
                 <p className="text-xs text-gray-600 truncate">Your spiritual journey awaits</p>
               </div>
             </div>
+            <div className="flex gap-3 mb-2 text-xs text-gray-500">
+              <Link to="/About" className="hover:text-sacred-sage transition-colors">About</Link>
+              <span>·</span>
+              <Link to="/Contact" className="hover:text-sacred-sage transition-colors">Contact</Link>
+            </div>
             <button
               onClick={() => setShowDeleteModal(true)}
               className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-red-500 hover:bg-red-50 text-sm font-medium transition-colors select-none min-h-[44px]"
