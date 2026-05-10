@@ -10,6 +10,15 @@ Deno.serve(async (req) => {
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
     // Search for customer by email
+    // 14-day free trial from account creation date
+    const createdDate = new Date(user.created_date || Date.now());
+    const trialDays = 14;
+    const trialEnds = new Date(createdDate.getTime() + trialDays * 24 * 60 * 60 * 1000);
+    if (new Date() < trialEnds) {
+      const daysLeft = Math.ceil((trialEnds - new Date()) / (1000 * 60 * 60 * 24));
+      return Response.json({ subscribed: true, plan: 'trial', trial: true, trial_days_left: daysLeft });
+    }
+
     const customers = await stripe.customers.list({ email: user.email, limit: 1 });
     if (!customers.data.length) {
       return Response.json({ subscribed: false, plan: null });

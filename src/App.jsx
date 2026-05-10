@@ -11,6 +11,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import SocialAnalyticsDashboard from './pages/SocialAnalyticsDashboard';
 import About from './pages/About';
+import BrandAssets from './pages/BrandAssets';
 import Contact from './pages/Contact';
 import ContentGenerator from './pages/ContentGenerator';
 import Pricing from './pages/Pricing';
@@ -68,6 +69,7 @@ const AuthenticatedApp = () => {
         } />
         <Route path="/SubscriptionSuccess" element={<SubscriptionSuccess />} />
         <Route path="/About" element={<LayoutWrapper currentPageName="About"><About /></LayoutWrapper>} />
+        <Route path="/BrandAssets" element={<LayoutWrapper currentPageName="BrandAssets"><BrandAssets /></LayoutWrapper>} />
         <Route path="/Contact" element={<LayoutWrapper currentPageName="Contact"><Contact /></LayoutWrapper>} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

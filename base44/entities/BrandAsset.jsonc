@@ -1,0 +1,62 @@
+{
+  "name": "BrandAsset",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Asset name or label"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "image",
+        "video",
+        "logo",
+        "banner",
+        "icon",
+        "other"
+      ],
+      "description": "Type of brand asset"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "URL of the uploaded file"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Comma-separated tags for search and filtering (e.g. 'summer, retreat, testimonial')"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of when/how to use this asset",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "name",
+    "file_url",
+    "type"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

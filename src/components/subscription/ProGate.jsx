@@ -28,7 +28,16 @@ export default function ProGate({ children, featureName = "this feature" }) {
   }
 
   if (status?.subscribed) {
-    return <>{children}</>;
+    return (
+      <>
+        {status?.trial && (
+          <div className="w-full text-center py-1.5 px-4 text-xs font-medium bg-violet-600/90 text-white">
+            🎉 Free trial — {status.trial_days_left} day{status.trial_days_left !== 1 ? 's' : ''} remaining. <a href="/Pricing" className="underline font-semibold">Upgrade to keep access</a>
+          </div>
+        )}
+        {children}
+      </>
+    );
   }
 
   return (
