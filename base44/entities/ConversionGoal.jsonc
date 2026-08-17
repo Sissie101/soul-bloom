@@ -1,0 +1,49 @@
+{
+  "name": "ConversionGoal",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "e.g., 'Sacred Seeds Signup', 'Email Subscribe'"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this conversion represents"
+    },
+    "value": {
+      "type": "number",
+      "description": "Monetary value assigned to this conversion"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "awareness",
+        "engagement",
+        "conversion",
+        "retention"
+      ],
+      "description": "Marketing funnel stage"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "value",
+    "category"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

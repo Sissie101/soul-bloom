@@ -1,0 +1,43 @@
+{
+  "name": "Audience",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the resonance ring, e.g., 'Curious Seekers'"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of this audience segment"
+    },
+    "targeting_criteria": {
+      "type": "string",
+      "description": "Notes on LinkedIn targeting parameters"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "name": "Soundscape",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Name of the soundscape"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the experience and benefits"
+    },
+    "audio_url": {
+      "type": "string",
+      "description": "URL to the audio file"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "binaural_beats",
+        "nature_sounds",
+        "aurora_music",
+        "ambient",
+        "guided_meditation",
+        "sacred_frequencies"
+      ],
+      "description": "Type of audio experience"
+    },
+    "mood_resonance": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "radiant",
+          "peaceful",
+          "searching",
+          "flowing",
+          "grateful",
+          "transforming"
+        ]
+      },
+      "description": "Which moods this soundscape supports"
+    },
+    "frequency": {
+      "type": "string",
+      "description": "For binaural beats - the frequency (e.g., '40Hz - Gamma', '8Hz - Alpha')"
+    },
+    "duration_minutes": {
+      "type": "number",
+      "description": "Length of the audio in minutes"
+    },
+    "intention": {
+      "type": "string",
+      "description": "Spiritual intention (e.g., 'Deep Focus', 'Heart Opening', 'Clarity')"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Featured in main soundscape library"
+    }
+  },
+  "required": [
+    "title",
+    "audio_url",
+    "type"
+  ],
+  "rls": {
+    "read": {},
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "name": "Feedback",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "string",
+      "enum": [
+        "survey",
+        "email",
+        "community",
+        "direct",
+        "support"
+      ],
+      "description": "Where the feedback came from"
+    },
+    "feedback_text": {
+      "type": "string",
+      "description": "The actual feedback content"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "feature_request",
+        "bug_report",
+        "general_feedback",
+        "testimonial",
+        "complaint"
+      ],
+      "description": "Type of feedback"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "neutral",
+        "negative"
+      ],
+      "description": "AI-analyzed sentiment"
+    },
+    "campaign_id": {
+      "type": "string",
+      "description": "Related campaign if applicable"
+    },
+    "ai_insights": {
+      "type": "string",
+      "description": "AI-generated insights from this feedback"
+    }
+  },
+  "required": [
+    "feedback_text",
+    "source"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

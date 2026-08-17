@@ -1,0 +1,79 @@
+{
+  "name": "Creative",
+  "type": "object",
+  "properties": {
+    "campaign_id": {
+      "type": "string"
+    },
+    "audience_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "description": "Internal name for the creative, e.g., 'Gracie Snippet 1'"
+    },
+    "copy": {
+      "type": "string",
+      "description": "Ad copy"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "image",
+        "video",
+        "text",
+        "carousel"
+      ],
+      "default": "image"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "in_review",
+        "active",
+        "paused"
+      ],
+      "default": "draft"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes on strategy, e.g., 'Gracie-inspired snippet'"
+    },
+    "variant_of": {
+      "type": "string",
+      "description": "ID of the original creative if this is a test variant"
+    },
+    "clicks": {
+      "type": "number",
+      "default": 0
+    },
+    "conversions": {
+      "type": "number",
+      "default": 0
+    },
+    "engagement_score": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "campaign_id",
+    "title"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

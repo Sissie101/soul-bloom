@@ -26,5 +26,8 @@
       ],
       "description": "Active subscription plan"
     }
-  }
+  },
+  "required": [
+    "subscription_plan"
+  ]
 }
